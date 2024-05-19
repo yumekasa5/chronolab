@@ -1,0 +1,9 @@
+*.exe
+dist/
+build/
+__pycache__
+chronolab/__pycache__/*
+Common/__pycache__/*
+build/*
+.venv/*
+.python-version
