@@ -7,3 +7,5 @@ Common/__pycache__/*
 build/*
 .venv/*
 .python-version
+ChronoLab*/
+*.zip
