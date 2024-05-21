@@ -6,6 +6,7 @@ import tkinter.filedialog
 
 from GUI.SettingDialog import SettingDialog
 from GUI.FigureCanvas import FigureCanvasFrame
+from GUI.FigureSettingFrame import FigureSettingFrame
 
 class MainWindow(tk.Frame):
     def __init__(self, master=None, mode="user"):
@@ -41,6 +42,10 @@ class MainWindow(tk.Frame):
         self.comPortSpinbox = tk.Spinbox(from_=1, to=10, validate="key", width=3, validatecommand=(self.validate_com_port, '%P'), font=("Meyrio", 12))
         self.comPortSpinbox.setvar(name="COM Port", value="3")
         self.comPortSpinbox.place(x=125, y=20)
+        
+        # Figure Setting Frame
+        self.figureSettingFrame = FigureSettingFrame(self.master)
+        self.figureSettingFrame.place(x=300, y=100)
         
 
         # Table
