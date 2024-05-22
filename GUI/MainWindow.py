@@ -145,3 +145,9 @@ class MainWindow(tk.Frame):
             
     def update_canvas(self):
         self.canvas.update()
+        
+    # Spinbox event
+    def on_spinbox_change(self):
+        print("Spinbox value changed.")
+        self.update_canvas()
+    

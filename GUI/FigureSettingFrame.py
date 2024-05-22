@@ -26,3 +26,27 @@ class FigureSettingFrame(tk.Frame):
         self.label_ylabel.place(x=300, y=100)
         self.entry_ylabel = tk.Entry(width=20, font=("Meiryo", 10))
         
+        
+        # Spinbox for scale x-axis
+        self.label_scale_x = tk.Label(text="X-axis Scale", font=("Meiryo", 10))
+        self.label_scale_x.place(x=420, y=130)
+        
+        self.scaleXSpingBox = tk.Spinbox(from_=0, to=100, increment=0.1, width=5, font=("Meiryo", 10))
+        self.scaleXSpingBox.place(x=500, y=130)
+        
+        # Spinbox for scale y-axis
+        self.label_scale = tk.Label(text="Scale", font=("Meiryo", 10))
+        self.label_scale.place(x=300, y=130)
+        
+        self.scaleYSpingBox = tk.Spinbox(from_=0, to=100, increment=0.1, width=5, font=("Meiryo", 10), command=self.on_YSpinBoxChange)
+        self.scaleYSpingBox.place(x=360, y=130)
+        
+    # X Spinbox event
+    def on_XSpinBoxChange(self):
+        # X軸スピンボックスの値を取得
+        x = float(self.scaleXSpingBox.get())
+    
+    # Y Spinbox event
+    def on_YSpinBoxChange(self):
+        # Y軸スピンボックスの値を取得
+        y = float(self.scaleYSpingBox.get())
