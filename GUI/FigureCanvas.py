@@ -7,9 +7,10 @@ import numpy as np
 
 class FigureCanvasFrame(tk.Frame):
     """Canvas Frame for drawing figures"""
-    def __init__(self, master=None):
+    def __init__(self, master=None, sharedValible=None):
         super().__init__(master, width=500, height=400)  # Set the size of the frame
         self.master = master
+        self.shared_var = sharedValible
         self.create_figure()
 
     def create_figure(self):
@@ -20,6 +21,8 @@ class FigureCanvasFrame(tk.Frame):
         self.ax.set_title("Random Number Plot")
         self.ax.set_xlabel("X-axis")
         self.ax.set_ylabel("Y-axis")
+        self.ax.set_xlim(0, self.shared_var.x_scale)
+        self.ax.set_ylim(0, self.shared_var.y_scale)
         
         # Create a canvas to draw the figure
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.master)
@@ -32,5 +35,7 @@ class FigureCanvasFrame(tk.Frame):
         self.ax.set_title("Random Number Plot")
         self.ax.set_xlabel("X-axis")
         self.ax.set_ylabel("Y-axis")
+        self.ax.set_xlim(0, self.shared_var.x_scale)
+        self.ax.set_ylim(0, self.shared_var.y_scale)
         self.ax.plot(np.random.rand(10))
         self.canvas.draw()

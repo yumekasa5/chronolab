@@ -7,6 +7,7 @@ import tkinter.filedialog
 from GUI.SettingDialog import SettingDialog
 from GUI.FigureCanvas import FigureCanvasFrame
 from GUI.FigureSettingFrame import FigureSettingFrame
+from GUI.SharedValible import SharedValibleBase
 
 class MainWindow(tk.Frame):
     def __init__(self, master=None, mode="user"):
@@ -25,6 +26,9 @@ class MainWindow(tk.Frame):
         master.geometry(str(self.width) + "x" + str(self.height))
         self.master.title("ChronoLab")
         self.svPath = tk.StringVar()
+        
+        self.sharedValible = SharedValibleBase()
+        
         self.create_widgets()
 
     def create_widgets(self):
@@ -44,7 +48,7 @@ class MainWindow(tk.Frame):
         self.comPortSpinbox.place(x=125, y=20)
         
         # Figure Setting Frame
-        self.figureSettingFrame = FigureSettingFrame(self.master)
+        self.figureSettingFrame = FigureSettingFrame(master=self.master, sharedValible=self.sharedValible)
         self.figureSettingFrame.place(x=300, y=100)
         
 
@@ -89,7 +93,7 @@ class MainWindow(tk.Frame):
         # FigureCanvas
         self.canvas_frame = tk.Frame(self.master)
         self.canvas_frame.place(x=1000, y=10)
-        self.canvas = FigureCanvasFrame(master=self.canvas_frame)
+        self.canvas = FigureCanvasFrame(master=self.canvas_frame, sharedValible=self.sharedValible)
         self.update_canvas()
 
     def validate_com_port(self, value):
@@ -147,7 +151,7 @@ class MainWindow(tk.Frame):
         self.canvas.update()
         
     # Spinbox event
-    def on_XSpinboxChange(self, new_scale):
+    def setXSpinBoxScaleValue(self, new_scale):
         self.canvas.ax.set_xlim(0, new_scale)
         self.update_canvas()
     
