@@ -49,28 +49,48 @@ class MainWindow(tk.Frame):
         
         # Figure Setting Frame
         self.figureSettingFrame = FigureSettingFrame(master=self.master, sharedValible=self.sharedValible)
-        self.figureSettingFrame.place(x=300, y=100)
+        self.figureSettingFrame.place(x=500, y=100)
         
 
         # Table
-        # self.treeView = ttk.Treeview(self.master, columns=["ID", "Name", "Score"])
-        # # Column settings
-        # self.treeView.column('#0', width=0, stretch='no')
-        # self.treeView.column('ID', anchor='center', width=80)
-        # self.treeView.column('Name', anchor='w', width=100)
-        # self.treeView.column('Score', anchor='center', width=80)
-        # # Column headers
-        # self.treeView.heading('#0', text="check")
-        # self.treeView.heading('ID', text='ID', anchor='center')
-        # self.treeView.heading('Name', text='Name', anchor='w')
-        # self.treeView.heading('Score', text='Score', anchor='center')
-        # # Record insertion
-        # self.treeView.insert(parent='', index='end', iid=0, values=("☐", 1, 'KAWASAKI', 80))
-        # self.treeView.insert(parent='', index='end', iid=1, values=("☐", 2, 'SHIMIZU', 90))
-        # self.treeView.insert(parent='', index='end', iid=2, values=("☐", 3, 'TANAKA', 45))
-        # self.treeView.insert(parent='', index='end', iid=3, values=("☐", 4, 'OKABE', 60))
-        # # Widget placement
-        # self.treeView.place(x=5, y=5)
+        self.treeViewStyle = ttk.Style()
+        self.treeViewStyle.configure("Treeview", font=("Meiryo", 15), rowheight=30, fieldbackground="white")
+        self.treeViewStyle.configure("Treeview.Heading", font=("Meiryo", 15))
+        self.treeView = ttk.Treeview(self.master, columns=["BK", "PP", "Horse", "A&S", "Wgt(kg)", "Jockey"], style="Treeview", height=18, show="headings")
+        self.treeView.column("#0", width=0, stretch="no")
+        self.treeView.column("BK", anchor="center", width=60)
+        self.treeView.column("PP", anchor="center", width=60)
+        self.treeView.column("Horse", anchor="w", width=250)
+        self.treeView.column("A&S", anchor="center", width=80)
+        self.treeView.column("Wgt(kg)", anchor="center", width=100)
+        self.treeView.column("Jockey", anchor="w", width=210)
+        self.treeView.heading("#0", text="")
+        self.treeView.heading("BK", text="BK", anchor="center")
+        self.treeView.heading("PP", text="PP", anchor="center")
+        self.treeView.heading("Horse", text="Horse", anchor="w")
+        self.treeView.heading("A&S", text="A&S", anchor="center")
+        self.treeView.heading("Wgt(kg)", text="Wgt(kg)", anchor="center")
+        self.treeView.heading("Jockey", text="Jockey", anchor="w")
+        self.treeView.insert("", "end", values=("1", "1", "パンサラッサ", "1.1", "55.0", "Yutaka Yoshida"))
+        self.treeView.insert("", "end", values=("1", "2", "スワーヴリチャード", "1.2", "55.0", "O.Murphy"))
+        self.treeView.insert("", "end", values=("2", "3", "クロノジェネシス", "1.3", "55.0", "Yuuichi Kitamura"))
+        self.treeView.insert("", "end", values=("2", "4", "エフフォーリア", "1.4", "55.0", "Takeshi Yokoyama"))
+        self.treeView.insert("", "end", values=("3", "5", "アーモンドアイ", "1.5", "55.0", "C.Lemaire"))
+        self.treeView.insert("", "end", values=("4", "6", "ダンビュライト", "1.6", "55.0", "M.Demuro"))
+        self.treeView.insert("", "end", values=("4", "7", "コントレイル", "1.7", "55.0", "Yuichi Fukunaga"))
+        self.treeView.insert("", "end", values=("4", "8", "ディープインパクト", "1.8", "55.0", "Yutaka Take"))
+        self.treeView.insert("", "end", values=("5", "9", "スタニングローズ", "1.9", "55.0", "Ryusei Sakai"))
+        self.treeView.insert("", "end", values=("5", "10", "フィエールマン", "1.10", "55.0", "Kenichi Ikezoe"))
+        self.treeView.insert("", "end", values=("6", "11", "サラキア", "1.11", "55.0", "Kohei Matsuyama"))
+        self.treeView.insert("", "end", values=("6", "12", "グランアレグリア", "1.12", "55.0", "J.Moreira"))
+        self.treeView.insert("", "end", values=("7", "13", "アエロリット", "1.13", "55.0", "Keita Tosaki"))
+        self.treeView.insert("", "end", values=("7", "14", "サンレイポケット", "1.14", "55.0", "Katsuma Samejima"))
+        self.treeView.insert("", "end", values=("8", "15", "リスグラシュー", "1.15", "55.0", "D.lane"))
+        self.treeView.insert("", "end", values=("8", "16", "シュバルグラン", "1.16", "55.0", "R.Moore"))
+        self.treeView.insert("", "end", values=("8", "17", "スターズオンアース", "1.17", "55.0", "Yuga Kawada"))
+        self.treeView.insert("", "end", values=("8", "18", "スティッフェリオ", "1.18", "55.0", "Norihiro Yokoyama"))
+        self.treeView.place(x=10, y=450)
+        
         # self.treeView.bind("<<TreeviewSelect>>", self.toggle_checkbox)
 
         # ListBox
@@ -81,8 +101,10 @@ class MainWindow(tk.Frame):
 
         # Check ListBox status button
         self.checkBtn = tk.Button(text="Check", width=15, height=2, font=("Meyrio", 12))
+        
+        # Update Canvas Button
         self.updateCanvasButton = tk.Button(text="Update", width=15, height=2, font=("Meyrio", 12), command=self.update_canvas)
-        self.updateCanvasButton.place(x=1000, y=500)
+        self.updateCanvasButton.place(x=1000, y=700)
         
         # Open Setting Dialog Button
         self.settingButton = tk.Button(text="Setting", width=15, height=2, font=("Meyrio", 12))

@@ -8,7 +8,7 @@ import numpy as np
 class FigureCanvasFrame(tk.Frame):
     """Canvas Frame for drawing figures"""
     def __init__(self, master=None, sharedValible=None):
-        super().__init__(master, width=500, height=400)  # Set the size of the frame
+        super().__init__(master, width=800, height=800)  # Set the size of the frame
         self.master = master
         self.shared_var = sharedValible
         self.create_figure()
@@ -16,7 +16,7 @@ class FigureCanvasFrame(tk.Frame):
     def create_figure(self):
         """Set the figure"""
         # Setting of the matplotlib figure
-        self.fig = Figure(figsize=(6, 4), dpi=100)
+        self.fig = Figure(figsize=(6, 6), dpi=100)
         self.ax = self.fig.add_subplot(111)
         self.ax.set_title("Random Number Plot")
         self.ax.set_xlabel("X-axis")
