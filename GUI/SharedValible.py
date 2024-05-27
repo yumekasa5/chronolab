@@ -10,8 +10,8 @@ class SharedValibleBase:
         self.svPath = tk.StringVar()
         self.comPort = tk.StringVar()
         self.comPort.set("3")
-        self.x_scale = 5.0
-        self.y_scale = 10.0
+        self.x_scale = 45.0
+        self.y_scale = 600.0
         self.title = "Random Number Plot"
         self.x_label = "X-axis"
         self.y_label = "Y-axis"
