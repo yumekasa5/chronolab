@@ -112,6 +112,17 @@ class MainWindow(tk.Frame):
         self.settingButton.bind("<ButtonPress>", self.openSettingDialog)
         self.settingButton.place(x=0, y=400)
         
+        # ComboBox for selecting specified x value
+        self.specified_x_value_IntVar = tk.IntVar()
+        self.specified_previous_x_value_IntVar = tk.IntVar()
+        self.specifiedXComboBox = ttk.Combobox(self.master, textvariable=self.specified_x_value_IntVar, width=5, font=("Meyrio", 12))
+        self.specifiedXComboBox["values"] = [str(i) for i in range(100)]
+        self.specifiedXComboBox.place(x=1000, y=1000)
+        self.specifiedXComboBox.bind("<<ComboboxSelected>>", self.comboBoxSelected)
+        self.specifiedXComboBox.set("0")
+        self.specified_x_value_IntVar.set(0)
+        self.specified_previous_x_value_IntVar.set(0)
+        
         # FigureCanvas
         self.canvas_frame = tk.Frame(self.master)
         self.canvas_frame.place(x=1000, y=10)
@@ -168,6 +179,11 @@ class MainWindow(tk.Frame):
         self.sampleListBox.delete(0, tk.END)
         for id in checked_ids:
             self.sampleListBox.insert(tk.END, id)
+    
+    def comboBoxSelected(self, event):
+        print(self.specifiedXComboBox.get())
+        self.canvas.plotvline(int(self.specifiedXComboBox.get()), previouslabel=str(self.specified_previous_x_value_IntVar.get()), currentlabel=str(self.specifiedXComboBox.get()))
+        self.specified_previous_x_value_IntVar.set(int(self.specifiedXComboBox.get()))
             
     def update_canvas(self):
         self.canvas.update()

@@ -43,7 +43,7 @@ class FigureCanvasFrame(tk.Frame):
         self.ax.plot(x, y)
         
         # Add vertical dashed lines
-        specifield_x = [6.2, 13.6, 25.7, 34.8]
+        specifield_x = [np.random.randint(0, 100) for _ in range(5)]
         for x in specifield_x:
             self.ax.axvline(x=x, linestyle='--', color='gray', alpha=0.5, ymax=0.66)
         
@@ -52,3 +52,13 @@ class FigureCanvasFrame(tk.Frame):
             self.ax.text(x, self.shared_var.y_scale*2/3, f'X={x}', ha='center', va='bottom', clip_on=True)
         
         self.canvas.draw()
+        
+    def plotvline(self, x, previouslabel="", currentlabel=""):
+        """Plot a vertical line"""
+        for line in self.ax.lines:
+            # labelと同じ線があれば削除
+            if line.get_label() == previouslabel:
+                line.remove()
+        self.ax.axvline(x=x, linestyle="-", color="red", label=currentlabel,  alpha=1.0)
+        self.canvas.draw()
+        
