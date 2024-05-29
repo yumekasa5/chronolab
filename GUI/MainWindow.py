@@ -192,4 +192,11 @@ class MainWindow(tk.Frame):
     def setXSpinBoxScaleValue(self, new_scale):
         self.canvas.ax.set_xlim(0, new_scale)
         self.update_canvas()
+        
+    # selectd item event
+    def selected_item(self, event):
+        global selected_item
+        selected_item = self.treeView.focus()
+        print(selected_item)
+        selected_item = self.treeView.item(selected_item, "values")
     
