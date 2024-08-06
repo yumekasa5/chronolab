@@ -8,6 +8,7 @@ from GUI.SettingDialog import SettingDialog
 from GUI.FigureCanvas import FigureCanvasFrame
 from GUI.FigureSettingFrame import FigureSettingFrame
 from GUI.SharedValible import SharedValibleBase
+from GUI.LogAnalyser.LogAnalyzerMainWindow import LogAnalyzerMainWindowDialog
 
 class MainWindow(tk.Frame):
     def __init__(self, master=None, mode="user"):
@@ -35,22 +36,9 @@ class MainWindow(tk.Frame):
         """Initialize widgets"""
         
         # File Select Button
-        self.fileSelectButton = tk.Button(text="Select", width=15, height=2, font=("Meyrio", 12))
-        self.fileSelectButton.place(x=0, y=300)
+        self.fileSelectButton = tk.Button(text="Select...", width=15, height=2, font=("Meyrio", 9))
         self.fileSelectButton.bind("<ButtonPress>", self.openFileDialog)
-        
-        # COM Port Select Spinbox
-        self.validate_com_port = self.master.register(self.validate_com_port)
-        self.comPortLabel = tk.Label(text="COM Port :", width=10, height=2, font=("Meyrio", 12))
-        self.comPortLabel.place(x=20, y=10)
-        self.comPortSpinbox = tk.Spinbox(from_=1, to=10, validate="key", width=3, validatecommand=(self.validate_com_port, '%P'), font=("Meyrio", 12))
-        self.comPortSpinbox.setvar(name="COM Port", value="3")
-        self.comPortSpinbox.place(x=125, y=20)
-        
-        # Figure Setting Frame
-        self.figureSettingFrame = FigureSettingFrame(master=self.master, sharedValible=self.sharedValible)
-        self.figureSettingFrame.place(x=500, y=100)
-        
+        self.fileSelectButton.place(x=10, y=5)
 
         # Table
         self.treeViewStyle = ttk.Style()
@@ -89,54 +77,28 @@ class MainWindow(tk.Frame):
         self.treeView.insert("", "end", values=("8", "16", "シュバルグラン", "1.16", "55.0", "R.Moore"))
         self.treeView.insert("", "end", values=("8", "17", "スターズオンアース", "1.17", "55.0", "Yuga Kawada"))
         self.treeView.insert("", "end", values=("8", "18", "スティッフェリオ", "1.18", "55.0", "Norihiro Yokoyama"))
-        self.treeView.place(x=10, y=450)
-        
-        # self.treeView.bind("<<TreeviewSelect>>", self.toggle_checkbox)
+        self.treeView.place(x=10, y=60)
+        # self.treeView.bind("<<TreeviewSelect>>", self.toggle_checkbox))
 
-        # ListBox
-        color_list = ["red", "blue", "green"]
-        color_v = tkinter.StringVar(self.master, value=color_list)
-        self.sampleListBox = tk.Listbox(self.master, width=10, height=5, listvariable=color_v, font=("Meyrio", 12))
-        self.sampleListBox.place(x=200, y=300)
-
-        # Check ListBox status button
-        self.checkBtn = tk.Button(text="Check", width=15, height=2, font=("Meyrio", 12))
+        # Open Log Analyser Dialog button
+        self.openLogAnalyserBtton = tk.Button(text="LogAnalyser...", width=15, height=2, font=("Meyrio", 9))
+        self.openLogAnalyserBtton.bind("<ButtonPress>", self.openLogAnalyser)
+        self.openLogAnalyserBtton.place(x=10, y=700)
         
         # Update Canvas Button
-        self.updateCanvasButton = tk.Button(text="Update", width=15, height=2, font=("Meyrio", 12), command=self.update_canvas)
+        self.updateCanvasButton = tk.Button(text="Update", width=15, height=2, font=("Meyrio", 9), command=self.update_canvas)
         self.updateCanvasButton.place(x=1000, y=700)
         
         # Open Setting Dialog Button
-        self.settingButton = tk.Button(text="Setting", width=15, height=2, font=("Meyrio", 12))
-        self.settingButton.place(x=0, y=400)
+        self.settingButton = tk.Button(text="Setting...", width=15, height=2, font=("Meyrio", 9))
         self.settingButton.bind("<ButtonPress>", self.openSettingDialog)
-        self.settingButton.place(x=0, y=400)
-        
-        # ComboBox for selecting specified x value
-        self.specified_x_value_IntVar = tk.IntVar()
-        self.specified_previous_x_value_IntVar = tk.IntVar()
-        self.specifiedXComboBox = ttk.Combobox(self.master, textvariable=self.specified_x_value_IntVar, width=5, font=("Meyrio", 12))
-        self.specifiedXComboBox["values"] = [str(i) for i in range(100)]
-        self.specifiedXComboBox.place(x=1000, y=1000)
-        self.specifiedXComboBox.bind("<<ComboboxSelected>>", self.comboBoxSelected)
-        self.specifiedXComboBox.set("0")
-        self.specified_x_value_IntVar.set(0)
-        self.specified_previous_x_value_IntVar.set(0)
+        self.settingButton.place(x=1000, y=800)
         
         # FigureCanvas
         self.canvas_frame = tk.Frame(self.master)
         self.canvas_frame.place(x=1000, y=10)
         self.canvas = FigureCanvasFrame(master=self.canvas_frame, sharedValible=self.sharedValible)
         self.update_canvas()
-
-    def validate_com_port(self, value):
-        if value == "":
-            return True
-        try:
-            int(value)
-        except ValueError:
-            return False
-        return True
     
     def checkListBoxStatus(self, event):
         print(f"ListBox(ACTIVE):{self.sampleListBox.get(tk.ACTIVE)}")
@@ -145,6 +107,11 @@ class MainWindow(tk.Frame):
     def deleteDataFromListBox(self, event):
         index = self.sampleListBox.curselection()
         self.sampleListBox.delete(index)
+        
+    def openLogAnalyser(self, event):
+        print("Log Analyser open.")
+        logAnalyserDialog = LogAnalyzerMainWindowDialog(self)
+        return "break"
 
     def openFileDialog(self, event):
         """Open File Dialog and return string of file path"""
