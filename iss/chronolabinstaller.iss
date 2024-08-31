@@ -5,7 +5,7 @@
 #define MyAppVersion "0.0.0"
 #define MyAppPublisher "yumekasa5"
 #define MyAppURL "https://github.com/yumekasa5/chronolab"
-#define MyAppExeName "ChronoLab.exe"
+#define MyAppExeName "main.exe"
 #define MyAppAssocName MyAppName + " File"
 #define MyAppAssocExt ".myp"
 #define MyAppAssocKey StringChange(MyAppAssocName, " ", "") + MyAppAssocExt
@@ -26,9 +26,9 @@ ChangesAssociations=yes
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=D:\Work
+OutputDir=C:\work
 OutputBaseFilename=ChronoLabInstaller
-SetupIconFile=D:\Work\git_repo\chronolab\ChronoLab-0.0.0-win32\data\icon\ChronoLab.ico
+SetupIconFile=c:\work\git_repo\python\chronolab\ChronoLab-0.0.0-win32\data\icon\ChronoLab.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -41,8 +41,9 @@ Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\Work\git_repo\chronolab\ChronoLab-0.0.0-win32\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Work\git_repo\chronolab\ChronoLab-0.0.0-win32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "c:\Work\git_repo\python\chronolab\ChronoLab-0.0.0-win32\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "c:\Work\git_repo\python\chronolab\ChronoLab-0.0.0-win32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "c:\Work\test.bat"; DestDir: "{app}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
@@ -57,5 +58,7 @@ Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
+Filename: "{app}\test.bat";
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
 

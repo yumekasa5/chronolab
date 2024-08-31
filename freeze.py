@@ -22,7 +22,7 @@ freeze(
     options = build_exe_option,
     windows = [
         {
-            "script" : "ChronoLab.py",
+            "script" : "main.py",
             "icon_resources" : [(1, "data/icon/ChronoLab.ico")]
         }
     ],
