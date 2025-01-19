@@ -12,17 +12,23 @@ if os.path.exists("ChronoLab-" + APP_VERSION + "-win32.zip"):
     os.remove("ChronoLab-" + APP_VERSION + "-win32.zip")
 
 build_exe_option = {
-    "excludes" : [],
-    "compressed" : 1,
-    "optimize" : 1,
-    "bundle_files" : 3,
+    "data_files": [
+        ("data_files/platforms", "qwindows.dll"),
+        ("data_files/imageformats", "data_files/imageformats"),
+        ("data_files/imageformats", [os.path.join("data_files/imageformats", f) for f in os.listdir("data_files/imageformats")]),
+        ("styles", [os.path.join("data_files/styles", f) for f in os.listdir("data_files/styles")]),
+    ],
+    "excludes": [],
+    "compressed": 1,
+    "optimize": 1,
+    "bundle_files": 3,
 }
 
 freeze(
     options = build_exe_option,
     windows = [
         {
-            "script" : "main.py",
+            "script" : "chronolab.py",
             "icon_resources" : [(1, "data/icon/ChronoLab.ico")]
         }
     ],
